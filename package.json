@@ -1,0 +1,33 @@
+{
+  "name": "the-social",
+  "version": "1.0.0",
+  "description": "An API for a social network that will, one day, be developed",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DoctorMuch/the-social.git"
+  },
+  "keywords": [
+    "Mongoose",
+    "MongoDB",
+    "date-fns",
+    "the",
+    "social",
+    "ice",
+    "cream"
+  ],
+  "author": "David F Mueth",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DoctorMuch/the-social/issues"
+  },
+  "homepage": "https://github.com/DoctorMuch/the-social#readme",
+  "dependencies": {
+    "date-fns": "^2.27.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.14"
+  }
+}
