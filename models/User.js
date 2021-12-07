@@ -11,7 +11,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    validate: 'You must provide a valid email'
+    match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/]
   },
   thoughts: [
     {

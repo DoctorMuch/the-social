@@ -3,12 +3,12 @@ const { User } = require('../models');
 const userController = {
   getAllUsers(req, res) {
     User.find({})
-    .sort({ _id: -1 })
-    .then(dbUserData => res.json(dbUserData))
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ err: err.message });
-    });
+      .sort({ _id: -1 })
+      .then(dbUserData => res.json(dbUserData))
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ err: err.message });
+      });
   },
 
   getUserById({ params }, res) {
@@ -24,7 +24,13 @@ const userController = {
         console.log(err);
         res.status(400).json(err);
       });
-  }
+  },
+
+  addNewUser({ body }, res) {
+    User.create(body)
+      .then(dbUserData => res.json(dbUserData))
+      .catch(err => res.status(400).json({ err: err.message }));
+  },
 }
 
 module.exports = userController;
