@@ -2,7 +2,9 @@ const router = require('express').Router();
 const {
   getAllUsers,
   getUserById,
-  addNewUser
+  addNewUser,
+  updateUser,
+  removeUser
 } = require('../../controllers/user-controller');
 
 router
@@ -13,6 +15,8 @@ router
 router
 .route('/:id')  
 .get(getUserById)
+.put(updateUser)
+.delete(removeUser);
 
 
 module.exports = router;
