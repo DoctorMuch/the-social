@@ -13,7 +13,7 @@ const ReactionSchema = new Schema({
   },
   username: {
     type: String,
-    required: 'Reactions may not be made anonymously. Please give your name.'
+    required: 'Reactions may not be posted anonymously. Please give your name.'
   },
   createdAt: {
     type: Date,
@@ -48,11 +48,16 @@ const ThoughtSchema = new Schema({
 },
   {
     toJSON: {
+      virtuals: true,
       getters: true
     },
     id: false
   }
 );
+
+ThoughtSchema.virtual('reactionCount').get(function () {
+  return this.reactions.length;
+});
 
 const Thought = model('Thought', ThoughtSchema);
 

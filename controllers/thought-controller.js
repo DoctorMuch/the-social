@@ -4,6 +4,7 @@ const thoughtController = {
   addNewThought({ params, body }, res) {
     Thought.create(body)
       .then(({ _id }) => {
+        console.log(params);
         return User.findOneAndUpdate(
           { _id: params.userId },
           { $push: { thoughts: _id } },
@@ -31,6 +32,21 @@ const thoughtController = {
         console.log(err);
         res.status(500).json({ err: err.message });
       })
+  },
+
+  getThoughtById({ params }, res) {
+    Thought.findOne({ _id: params.thoughtId })
+      .then(dbThoughtData => {
+        if (!dbThoughtData) {
+          res.status(404).json({ message: 'Cannot locate a thought by that ID.' });
+          return;
+        }
+        res.json(dbThoughtData);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(400).json(err);
+      });
   },
 }
 
