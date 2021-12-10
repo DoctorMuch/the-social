@@ -3,14 +3,6 @@ const { User } = require('../models');
 const userController = {
   getAllUsers(req, res) {
     User.find({})
-      .populate({
-        path: 'thoughts',
-        select: ' -__v'
-      })
-      .populate({
-        path: 'friends',
-        select: '-__v'
-      })
       .select('-__v')
       .sort({ _id: -1 })
       .then(dbUserData => res.json(dbUserData))
@@ -22,6 +14,14 @@ const userController = {
 
   getUserById({ params }, res) {
     User.findOne({ _id: params.id })
+      .populate({
+        path: 'thoughts',
+        select: ' -__v'
+      })
+      .populate({
+        path: 'friends',
+        select: '-__v'
+      })
       .then(dbUserData => {
         if (!dbUserData) {
           res.status(404).json({ message: 'There is no user by this id in our records' });
@@ -44,7 +44,7 @@ const userController = {
   updateUser({ params, body }, res) {
     User.findOneAndUpdate({ _id: params.id }, body, { new: true })
       .then(dbUserData => {
-        if(!dbUserData) {
+        if (!dbUserData) {
           res.status(404).json({ message: 'There is no User by that ID in our database.' });
           return;
         }
@@ -59,7 +59,7 @@ const userController = {
   removeUser({ params }, res) {
     User.findOneAndDelete({ _id: params.id })
       .then(dbUserData => {
-        if(!dbUserData) {
+        if (!dbUserData) {
           res.status(404).json({ message: 'No User by that ID in our records.' });
           return;
         }
