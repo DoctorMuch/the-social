@@ -18,18 +18,12 @@ const reactionController = {
   },
 
   removeReaction({ params }, res) {
-    Thought.findOneAndDelete({ _id: params.reactionId })
-      .then(deletedReaction => {
-        if (!deletedReaction) {
-          res.status(404).json({ message: 'No reaction found to delete!' });
-          return;
-        }
-        return Thought.findOneAndUpdate(
-          { _id: params.thoughtId },
-          { $pull: { reactions: params.reactionId } },
-          { new: true }
-        );
-      })
+
+    Thought.findOneAndUpdate(
+      { _id: params.thoughtId },
+      { $pull: { reactions: { reactionId: params.reactionId } } },
+      { new: true }
+    )
       .then(dbThoughtData => {
         if (!dbThoughtData) {
           res.status(404).json({ message: 'There is no thought by this ID in our records.' });
