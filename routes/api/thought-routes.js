@@ -30,6 +30,9 @@ router
 router
   .route('/:thoughtId/reactions')
   .post(addNewReaction)
+
+  router
+  .route('/:thoughtId/reactions/:reactionId')
   .delete(removeReaction)
 
 
