@@ -22,6 +22,7 @@ const userController = {
         path: 'friends',
         select: '-__v'
       })
+      .select('-__v')
       .then(dbUserData => {
         if (!dbUserData) {
           res.status(404).json({ message: 'There is no user by this id in our records' });
