@@ -23,7 +23,7 @@ router
   
 
 router
-  .route('/:userId/:thoughtId')
+  .route('/:thoughtId')
   .put(updateThought)
   .delete(removeThought)
 

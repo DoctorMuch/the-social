@@ -26,6 +26,7 @@ const thoughtController = {
   getAllThoughts(req, res) {
     Thought.find({})
       .sort({ _id: -1 })
+      .select('-__v')
       .then(dbThoughtData => res.json(dbThoughtData))
       .catch(err => {
         console.log(err);
@@ -79,18 +80,9 @@ const thoughtController = {
           res.status(404).json({ message: 'No thought by that ID in our records.' });
           return;
         }
-        return User.findOneAndUpdate(
-          { _id: params.userId },
-          { $pull: { thoughts: params.thoughtId } },
-          { new: true }
-        );
-      })
-      .then(dbUserData => {
-        if(!dbUserData) {
-          res.status(404).json({ message: 'No user with this ID found to remove a thought.' });
-          return;
-        }
-        res.json(dbUserData);
+        return Thought.find({})
+          .then(dbThoughtData => res.json(dbThoughtData))
+          .catch(err => res.status(400).json({ err: err.message }));
       })
       .catch(err => {
         console.log(err);
